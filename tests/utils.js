@@ -1,5 +1,8 @@
 require('dotenv').config();
+const { hashSync } = require('bcrypt');
 const { Pool } = require('pg');
+
+const redis = require('../src/utils/redis');
 
 const db = new Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -8,12 +11,15 @@ module.exports = {
 
   cleanDatabase: async () => {
     await db.query('DELETE FROM users');
+    await redis.resetRedisDB();
   },
 
-  createUser: async (email) => {
-    await db.query(`INSERT INTO users
+  createUser: async (email, password) => {
+    const user = await db.query(`INSERT INTO users
     (name, nickname, email, password, ra, place) VALUES
-    ('gabriel', 'feipa', '${email}', 'dahoralek123', 18, 'tajmahal')
+    ('gabriel', 'feipa', '${email}', '${hashSync(password, 10)}', 18, 'tajmahal')
     RETURNING *;`);
+
+    return user.rows[0];
   },
 };

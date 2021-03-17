@@ -10,4 +10,8 @@ module.exports = {
     ra: joi.number().required(),
     place: joi.string().valid('tajmahal', 'ap', 'toid'),
   }),
+  signIn: joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().required(),
+  }),
 };
