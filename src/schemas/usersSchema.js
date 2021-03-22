@@ -8,7 +8,6 @@ module.exports = {
     password: joi.string().required(),
     passwordConfirmation: joi.string().valid(joi.ref('password')).required(),
     ra: joi.number().required(),
-    place: joi.string().valid('tajmahal', 'ap', 'toid'),
   }),
   signIn: joi.object({
     email: joi.string().email().required(),

@@ -16,8 +16,8 @@ module.exports = {
 
   createUser: async (email, password) => {
     const user = await db.query(`INSERT INTO users
-    (name, nickname, email, password, ra, place) VALUES
-    ('gabriel', 'feipa', '${email}', '${hashSync(password, 10)}', 18, 'tajmahal')
+    (name, nickname, email, password, ra) VALUES
+    ('gabriel', 'feipa', '${email}', '${hashSync(password, 10)}', 18)
     RETURNING *;`);
 
     return user.rows[0];

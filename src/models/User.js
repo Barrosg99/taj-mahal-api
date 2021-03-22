@@ -31,10 +31,6 @@ const attributes = {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  place: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   createdAt: {
     type: Sequelize.DATE,
   },

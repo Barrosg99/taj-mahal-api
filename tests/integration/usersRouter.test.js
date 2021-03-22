@@ -45,7 +45,6 @@ describe('POST /users/sign-up', () => {
       password: 'dahoralek123',
       passwordConfirmation: 'dahoralek123',
       ra: 18,
-      place: 'tajmahal',
     };
 
     const response = await agent.post('/users/sign-up').send(body);
@@ -60,7 +59,6 @@ describe('POST /users/sign-up', () => {
       password: 'dahoralek123',
       passwordConfirmation: 'dahoralek123',
       ra: 18,
-      place: 'tajmahal',
     };
 
     const { status, body } = await agent.post('/users/sign-up').send(user);
