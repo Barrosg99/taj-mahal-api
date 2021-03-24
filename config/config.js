@@ -18,6 +18,10 @@ module.exports = {
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
     dialectOptions: {
+      ssl: {
+        require: false,
+        rejectUnauthorized: false,
+      },
       useUTC: false, // for reading from database
     },
     timezone: '-03:00', // for writing to database
