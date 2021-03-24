@@ -10,6 +10,9 @@ class Redis {
   createInstance() {
     const createClient = redis.createClient({
       url: process.env.REDIS_URL,
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
     createClient.on('error', (error) => {
       console.error(error);
