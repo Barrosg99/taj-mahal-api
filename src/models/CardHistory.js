@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const sequelize = require('../utils/database');
 
-class User extends Sequelize.Model { }
+class CardHistory extends Sequelize.Model { }
 
 const attributes = {
   id: {
@@ -10,36 +10,29 @@ const attributes = {
     autoIncrement: true,
     allowNull: false,
   },
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  nickname: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  ra: {
+  userId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
   },
-  phone: {
+  finality: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
-  hasCard: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
-    allowNull: true,
+  place: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  purchase: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: Sequelize.DOUBLE(null, 2),
+    allowNull: false,
   },
   createdAt: {
     type: Sequelize.DATE,
@@ -52,9 +45,9 @@ const attributes = {
 const options = {
   sequelize,
   timestamps: true,
-  modelName: 'user',
+  modelName: 'cardHistory',
 };
 
-User.init(attributes, options);
+CardHistory.init(attributes, options);
 
-module.exports = User;
+module.exports = CardHistory;

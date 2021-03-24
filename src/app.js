@@ -14,9 +14,16 @@ app.use(express.json());
 // const { verifyJWT } = require('./middlewares');
 
 const usersRouter = require('./routers/client/usersRouter');
-const { InvalidDataError, ConflictError, AuthError } = require('./errors');
+const cardRouter = require('./routers/client/cardRouter');
+
+const {
+  InvalidDataError, ConflictError, AuthError, AlreadyHaveCardError, DoesNotHaveCardError,
+} = require('./errors');
+
+require('./utils/loadRelationships');
 
 app.use('/users', usersRouter);
+app.use('/card', cardRouter);
 
 app.use((error, req, res, next) => {
   console.error(error);
@@ -24,6 +31,8 @@ app.use((error, req, res, next) => {
   if (error instanceof InvalidDataError) res.status(422).send(error.message);
   else if (error instanceof ConflictError) res.status(409).send(error.message);
   else if (error instanceof AuthError) res.status(401).send(error.message);
+  else if (error instanceof DoesNotHaveCardError) res.status(412).send(error.message);
+  else if (error instanceof AlreadyHaveCardError) res.status(412).send(error.message);
   else res.status(500).json(error);
 });
 

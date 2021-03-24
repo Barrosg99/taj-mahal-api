@@ -45,7 +45,7 @@ class Redis {
   async renewSession(key) {
     const clientInstance = this.getInstance();
 
-    await clientInstance.expire(key, process.env.SESSION_EXPIRATION);
+    await clientInstance.expire(key);
   }
 
   async resetRedisDB() {
