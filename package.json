@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "12.x",
+    "yarn": "1.22.5" 
+  },
   "scripts": {
     "test": "jest --runInBand",
     "dev": "nodemon ./src/server.js",
