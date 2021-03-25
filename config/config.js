@@ -22,8 +22,8 @@ module.exports = {
         require: false,
         rejectUnauthorized: false,
       },
-      useUTC: false, // for reading from database
+      useUTC: false,
     },
-    timezone: '-03:00', // for writing to database
+    timezone: '-03:00',
   },
 };
