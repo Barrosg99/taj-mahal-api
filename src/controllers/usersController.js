@@ -46,7 +46,7 @@ class UserController {
       content: [
         {
           type: 'text/html',
-          value: '<p>Hello from Twilio SendGrid!</p><p>Sending with the email service trusted by developers and marketers for <strong>time-savings</strong>, <strong>scalability</strong>, and <strong>delivery expertise</strong>.</p><p>%open-track%</p>',
+          value: '<h1>Meu pau no seu botão</h1>',
         },
       ],
     };
@@ -61,6 +61,21 @@ class UserController {
   async userReturnCard(id) {
     const user = await User.findByPk(id);
     if (user.hasCard === false) throw new DoesNotHaveCardError('This user does not have the card');
+
+    const msg = {
+      to: process.env.ADMIN_EMAIL,
+      from: process.env.ADMIN_EMAIL,
+      subject: `${user.nickname} devolveu o cartão`,
+      content: [
+        {
+          type: 'text/html',
+          value: '<h1>Meu pau na sua mão</h1>',
+        },
+      ],
+    };
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    await sgMail.send(msg);
 
     user.hasCard = false;
     await user.save();
