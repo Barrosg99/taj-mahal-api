@@ -9,7 +9,7 @@ class Redis {
 
   createInstance() {
     const createClient = redis.createClient({
-      url: process.env.REDIS_URL,
+      url: process.env.REDISCLOUD_URL,
     });
     createClient.on('error', (error) => {
       console.error(error);
