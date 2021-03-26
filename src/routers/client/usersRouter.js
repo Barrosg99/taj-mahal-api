@@ -42,10 +42,10 @@ router
   .post('/card', authMiddleware, async (req, res) => {
     const user = await usersController.userHasCard();
     if (user) {
-      res.status(204).send(user);
+      res.status(200).send(user);
     } else {
       await usersController.userTakeCard(req.userId);
-      res.sendStatus(200);
+      res.sendStatus(202);
     }
   })
   .post('/card-release', authMiddleware, async (req, res) => {
