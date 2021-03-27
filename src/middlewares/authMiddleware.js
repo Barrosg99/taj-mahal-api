@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
   if (!token) throw new AuthError('Missing token');
 
   jwt.verify(token, process.env.SECRET, (err) => {
+    console.error(err);
     if (err) throw new AuthError('Invalid token');
   });
 
