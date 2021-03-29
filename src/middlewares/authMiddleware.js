@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
   const token = header.split(' ')[1];
   if (!token) throw new AuthError('Missing token');
-  console.log(token);
+
   jwt.verify(token, process.env.SECRET, (err) => {
     if (err) throw new AuthError('Invalid token');
   });
