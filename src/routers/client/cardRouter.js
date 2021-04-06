@@ -11,6 +11,12 @@ router
     if (error) throw new InvalidDataError(error.details[0].message);
 
     res.status(201).send(await cardController.createHistory(req.body, req.userId));
+  })
+  .get('/histories', authMiddleware, async (req, res) => {
+    const { error } = cardSchema.querryString.validate(req.query);
+    if (error) throw new InvalidDataError(error.details[0].message);
+
+    res.send(await cardController.getHistory(req.query));
   });
 
 module.exports = router;

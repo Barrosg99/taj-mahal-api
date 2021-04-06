@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const supertest = require('supertest');
 const sequelize = require('../../src/utils/database');
-
 const app = require('../../src/app');
 const redis = require('../../src/utils/redis');
 const utils = require('../utils');

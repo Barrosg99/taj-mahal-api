@@ -7,4 +7,7 @@ module.exports = {
     purchase: Joi.string().required(),
     price: Joi.number().min(1),
   })),
+  querryString: Joi.object({
+    days: Joi.number(),
+  }),
 };
