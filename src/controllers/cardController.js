@@ -24,6 +24,7 @@ class CardController {
         model: User,
         attributes: ['nickname'],
       },
+      order: ['createdAt', 'DESC'],
     });
   }
 }
