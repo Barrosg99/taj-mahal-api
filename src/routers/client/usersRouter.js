@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { hashSync, compareSync } = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const usersController = require('../../controllers/usersController');
 const usersSchema = require('../../schemas/usersSchema');
@@ -8,6 +9,26 @@ const AuthError = require('../../errors/AuthError');
 const authMiddleware = require('../../middlewares/authMiddleware');
 
 router
+  .get(`/${process.env.REGISTER_USER_ROUTE}`, async (req, res) => {
+    jwt.verify(req.query.token, process.env.SECRET, async (err, decoded) => {
+      if (err) {
+        res.status(404).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>Error</title>
+          </head>
+          <body>
+            <pre>Cannot GET /users/${process.env.REGISTER_USER_ROUTE}</pre>
+          </body>
+        </html>
+        `);
+      }
+      await usersController.createUser(decoded);
+      res.send(`<h1>${decoded.nickname} foi criado</h1>`);
+    });
+  })
   .post('/sign-up', async (req, res) => {
     const { error } = usersSchema.signUp.validate(req.body);
     if (error) throw new InvalidDataError(error.details[0].message);
@@ -18,7 +39,8 @@ router
 
     req.body.password = hashSync(req.body.password, 10);
 
-    res.status(201).send(await usersController.createUser(req.body));
+    await usersController.verifyUser(req.body);
+    res.sendStatus(200);
   })
   .post('/sign-in', async (req, res) => {
     const { error } = usersSchema.signIn.validate(req.body);
